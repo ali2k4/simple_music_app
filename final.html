@@ -1,0 +1,566 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Humayun Ahmed simple music app</title>
+
+
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="https://d309knd7es5f10.cloudfront.net/zim_4.4.0.js"></script>
+
+<style>
+	body {margin:0px; padding:0px; background-color:#000000;}
+	#myCanvas {position:absolute;}
+</style>
+
+<script>
+
+
+var scaling = "fit"; 
+var width = 1024;
+var height = 768;
+var frame = new zim.Frame(scaling, width, height);
+
+frame.on("ready", function() {
+	zog("ready from ZIM Frame");
+
+	var stage = frame.stage;
+	var stageW = frame.width;
+	var stageH = frame.height;
+
+		///loading assets/////
+		frame.loadAssets([
+		    "artist.png", "back_btn.png","buy_ticket.png","card_btn.png",
+		    "going.png", "next.png",
+		    "play.png", "playerbg1.png", "playerbg2.png", "playerbg3.png", "playerbg4.png", "previous.png", "seek.png","thumbs_down.png","thumbs_up.png", "thumbs_up1.png", "thumbs_up2.png", "thumbs_up3.png", "timebar.png", "track_event.png", "card_back.png","deadmau5-Avaritia.mp3","stop_btn.png", "Deadmau5-Beneath-With-Me.mp3", "deadmau5-Not-Exactly.mp3", "deadmau5-Strobe.mp3","going_click.png", "bwm.png", "dav.png", "dno.png", "dst.png"
+		  ], "assets/");
+
+		frame.on("complete", function() {
+
+		// frame.on("ready", function() {
+			zog("ready from ZIM Frame");
+
+
+		/////////////////////////////////////
+		//////////////Images////////////////
+		///////////////////////////////////
+		var imageSong = new zim.Container();
+		stage.addChild(imageSong);
+
+		var imgS = frame.asset("playerbg1.png").clone();
+		imageSong.addChild(imgS);
+		zim.scale(imgS, 1.1)
+		imgS.x = stageW-520;
+		imgS.y = stageH/4 - (imgS.height+20);
+
+
+		var stop_btn = frame.asset("stop_btn.png");
+
+		var boxes = new zim.Container();
+		stage.addChild(boxes);
+
+		/////////////////////////////////////
+		//////////////box 1/////////////////
+		///////////////////////////////////
+			var mbox1 = new zim.Container();
+			boxes.addChild(mbox1);
+			//mbox1.alpha=0.5;
+			mbox1.pos = 0;
+			mbox1.col = 'blue';
+			mbox1.height = 400;
+			mbox1.x = stageW-500;
+			mbox1.y = stageH/4;
+
+
+				var mbox1_bg = frame.asset("playerbg1.png");
+				mbox1.addChild(mbox1_bg);
+
+				var label1 = new zim.Label("Deadmau5 - Beneath With Me", 15, null, "white");
+				mbox1.addChild(label1);
+				label1.x = 135;
+				label1.y = 50;
+
+				var play = frame.asset("play.png")
+				play.id = 0;
+				mbox1.addChild(play);
+				zim.scale(play, 0.73);
+				play.x = 50;
+				play.y = (mbox1.height/2) - 35;
+				
+						play.on("mouseover", function(){
+							play.alpha = 0.6;
+							stage.update();
+						});
+						play.on("mouseout", function(){
+							play.alpha = 1;
+							stage.update();
+						});
+
+				var upvote = frame.asset("thumbs_up.png");
+				mbox1.addChild(upvote);
+				upvote.x = mbox1.width - upvote.width*2;
+				upvote.y = mbox1.height - upvote.height*2.1;
+
+					upvote.on("mouseover", function(){
+						upvote.alpha = 0.6;
+						stage.update();
+					});
+					upvote.on("mouseout", function(){
+						upvote.alpha = 1;
+						stage.update();
+					});
+
+		//////////////box 2/////////////////
+			var mbox2 = new zim.Container();
+			boxes.addChild(mbox2);
+			mbox2.pos = 1;
+			mbox2.col = 'red';
+			mbox2.height = 400;
+			mbox2.x = stageW-500;
+			mbox2.y = stageH/4+118;
+
+				var mbox2_bg = frame.asset("playerbg2.png");
+				mbox2.addChild(mbox2_bg);
+				
+
+				var label2 = new zim.Label("deadmau5 - Strobe", 15, null, "white");
+				mbox2.addChild(label2);
+				label2.x = 135;
+				label2.y = 50;
+
+				var play2 = frame.asset("play.png").clone();
+				play2.id = 1;
+				mbox2.addChild(play2);
+				zim.scale(play2, 0.73);
+				play2.x = 50;
+				play2.y = (mbox2.height/2) - 35;
+
+						play2.on("mouseover", function(){
+							play2.alpha = 0.6;
+							stage.update();
+						});
+						play2.on("mouseout", function(){
+							play2.alpha = 1;
+							stage.update();
+						});
+
+				var upvote2 = frame.asset("thumbs_up1.png");
+				mbox2.addChild(upvote2);
+				upvote2.x = mbox2.width - upvote2.width*2;
+				upvote2.y = mbox2.height - upvote2.height*2.1;
+
+					upvote2.on("mouseover", function(){
+						upvote2.alpha = 0.6;
+						stage.update();
+					});
+					upvote2.on("mouseout", function(){
+						upvote2.alpha = 1;
+						stage.update();
+					});
+
+		//////////////box 3/////////////////
+			var mbox3 = new zim.Container();
+			boxes.addChild(mbox3);
+			mbox3.pos = 2;
+			mbox3.col = 'grey';
+			mbox3.height = 400;
+			mbox3.x = stageW-500;
+			mbox3.y = (stageH/4)+118*2;
+
+				var mbox3_bg = frame.asset("playerbg3.png");
+				mbox3.addChild(mbox3_bg);
+
+				var label3 = new zim.Label("deadmau5 - Not Exactly", 15, null, "white");
+				mbox3.addChild(label3);
+				label3.x = 135;
+				label3.y = 50;
+
+				var play3 = frame.asset("play.png").clone();
+				play3.id = 2;
+				mbox3.addChild(play3);
+				zim.scale(play3, 0.73);
+				play3.x = 50;
+				play3.y = (mbox3.height/2) - 35;
+						
+						play3.on("mouseover", function(){
+							play3.alpha = 0.6;
+							stage.update();
+						});
+						play3.on("mouseout", function(){
+							play3.alpha = 1;
+							stage.update();
+						});
+
+				var upvote3 = frame.asset("thumbs_up2.png");
+				mbox3.addChild(upvote3);
+				upvote3.x = mbox3.width - upvote3.width*2;
+				upvote3.y = mbox3.height - upvote3.height*2.1;
+
+					upvote3.on("mouseover", function(){
+						upvote3.alpha = 0.6;
+						stage.update();
+					});
+					upvote3.on("mouseout", function(){
+						upvote3.alpha = 1;
+						stage.update();
+					});
+
+		//////////////box 4/////////////////
+			var mbox4 = new zim.Container();
+			boxes.addChild(mbox4);
+			mbox4.pos = 3;
+			mbox4.col = 'green';
+			mbox4.height = 400;
+			mbox4.x = stageW-500;
+			mbox4.y = (stageH/4)+118*3;
+
+
+				var mbox4_bg = frame.asset("playerbg4.png");
+				mbox4.addChild(mbox4_bg);
+
+				var label4 = new zim.Label("deadmau5 - Avaritia", 15, null, "white");
+				mbox4.addChild(label4);
+				label4.x = 135;
+				label4.y = 50;
+
+				var play4 = frame.asset("play.png").clone();
+				play4.id = 3;
+				mbox4.addChild(play4);
+				zim.scale(play3, 0.73);
+				play4.x = 50;
+				play4.y = (mbox4.height/2) - 35;
+
+						play4.on("mouseover", function(){
+							play4.alpha = 0.6;
+							stage.update();
+						});
+						play4.on("mouseout", function(){
+							play4.alpha = 1;
+							stage.update();
+						});
+					
+				var upvote4 = frame.asset("thumbs_up3.png");
+				mbox4.addChild(upvote4);
+				upvote4.x = mbox4.width - upvote4.width*2;
+				upvote4.y = mbox4.height - upvote4.height*2.1; 
+
+					upvote4.on("mouseover", function(){
+						upvote4.alpha = 0.6;
+						stage.update();
+					});
+					upvote4.on("mouseout", function(){
+						upvote4.alpha = 1;
+						stage.update();
+					});
+
+		//////////////////////////////////////
+		/////////////////Array///////////////
+		////////////////////////////////////
+			var posArray = [mbox1, mbox2, mbox3, mbox4];
+
+
+			upvote.on("click",upvoted);
+			upvote2.on("click",upvoted);
+			upvote3.on("click",upvoted);
+			upvote4.on("click",upvoted);
+
+		//////////////////////////////////////
+		///////Function to rearrange/////////
+		////////////////////////////////////
+		function upvoted(e){
+				zog("click");
+				var box = e.target.parent;
+
+				zog(box.pos);
+
+				
+				var selectedRec = posArray.splice(box.pos, 1)[0];
+				// boxes.removeChild(selectedRec);
+				
+				posArray.unshift(selectedRec);
+				zog(posArray);
+
+				zim.loop(posArray, function(box, i){
+				// for (var i = 0 ; i<posArray.length; i++){
+				// 	box = posArray[i];
+					box.y = (stageH/4)+(118*i);
+					box.pos = i;
+					//zog(box.pos);
+					//zog(box.y, box.x);
+
+				},true);
+
+				stage.update();
+
+		}//end of function rearrange
+		////////////////////////////
+
+
+		/////////////////////////////////////
+		//////////////Artist ///////////////
+		///////////////////////////////////
+		var pic_artist = frame.asset("artist.png");
+		stage.addChild(pic_artist);
+		pic_artist.x = 50;
+		pic_artist.y = 50;
+
+		///////////////////////////////////
+		////////////Pane|button info///////
+		///////////////////////////////////
+
+		var pane = new zim.Pane(stage, stageW+30, 400, "Use thumbs up to rearrange list.\n\nUse the card below for show info and tickets\n\nPlay music =)");
+		pane.alpha = 0.9;
+
+			pane.show();
+
+			var infoButton = new zim.Button(280,60,"info", "grey", "#6d6e70");
+			infoButton.alpha = 0;
+			stage.addChild(infoButton);
+			infoButton.x = pic_artist.x + 20;
+			infoButton.y = pic_artist.y + pic_artist.height +10; // centers and adds to container (stage in this case)
+			infoButton.on("click", function() {paneDrag.show();});
+
+			pane.on("close", function(){
+				infoButton.animate({alpha:1}, 1, null, null, null, 500)
+			});
+
+
+			var closeBut = new zim.Button(41	,41,"X","black","#444","white","2",5);
+			var label = new zim.Label("DeadMau5, electronic music\n\nproducer from Canada.\n\nlatest show on\n\nDec 30, 2016 @ Chandler, AZ", 30, "Courier", "white");
+			// container, width, height, label, color, drag, resets, modal, etc. see docs
+			var paneDrag = new zim.Pane(stage, 550, 300, label, "black", true, false, false);
+			paneDrag.addChild(closeBut);
+			paneDrag.x = 400; paneDrag.y = 200;
+			closeBut.x = 200; closeBut.y = -130;
+			closeBut.alpha = .7;
+			// must make custom listener for close button to hide pane
+			closeBut.on("click",function() {paneDrag.hide();});
+
+
+
+
+		/////////////////////////////////////
+		//////////////PROMO CARD////////////
+		///////////////////////////////////
+		var promo_card = new zim.Container();
+		stage.addChild(promo_card);
+		//promo_card.x = 100;
+		//promo_card.y = 700;
+			
+			var card = frame.asset("card_back.png");
+			card.regX = card.width/2;
+			promo_card.addChild(card);
+			card.x = stageW/2.15;
+			card.y = 700;
+
+			//zim.drag(card);
+
+			var card_btn = frame.asset("card_btn.png");
+			zim.scale(card_btn, 0.7);
+			zim.centerReg(card_btn);
+			promo_card.addChild(card_btn);
+			card_btn.x = card.x+400;
+			card_btn.y = card.y+8;
+
+
+			var infobox = new zim.Rectangle(700,220, "white");
+			promo_card.addChild(infobox);
+			infobox.alpha = 0.6;
+			infobox.x = card.x - 310;
+			infobox.y = card.y + 40;
+
+			var info_label = new zim.Label ("Friday 30 December 2016 Deadmau5 with Zedd,\n\n The Chainsmokers, and 5 others\n\n Rawhide Western Town & Steakhouse,\n\n Chandler, AZ, US", 25);
+			promo_card.addChild(info_label);
+			info_label.x = card.x - 290;
+			info_label.y = card.y + 60;
+
+			var buy_ticket = frame.asset("buy_ticket.png");
+			promo_card.addChild(buy_ticket);
+			buy_ticket.alpha = 0.9;
+			buy_ticket.x = card.x - 290;
+			buy_ticket.y = card.y + 300;
+
+				buy_ticket.on("mouseover", function(){
+					buy_ticket.alpha = 1;
+					stage.update();
+				});
+				buy_ticket.on("mouseout", function(){
+					buy_ticket.alpha = 0.9;
+					stage.update();
+				});
+
+				buy_ticket.on("click", function(){
+					zgo("http://zimjs.com");
+				})
+
+
+			var going = frame.asset("going.png");
+			promo_card.addChild(going);
+			going.x = card.x + 100;
+			going.y = card.y + 300;
+
+			var going_click = frame.asset("going_click.png");
+
+			going.on("click", function(){
+				promo_card.addChild(going_click);
+				going_click.x = going.x;
+				going_click.y = going.y;
+			});
+
+			going_click.on("click", function(){
+				promo_card.addChild(going);
+			});
+
+			card_btn.addEventListener("click", upcard); //waits for click and executes function upcard
+			var card_btn1 = new zim.Circle(20,"white");
+
+		///////////moves card up////////////
+			function upcard(){
+				zog("click");
+				zim.move(promo_card, null, -650);
+
+				zim.animate({
+					target: card_btn,
+			      	obj:{rotation:card_btn.rotation-180},
+				});
+				
+				card_btn1.alpha = 0.05;
+				promo_card.addChild(card_btn1);
+				card_btn1.x=card_btn.x;
+				card_btn1.y=card_btn.y;
+			}//end card up
+
+			card_btn1.addEventListener("click", downcard);
+
+		//////////moves card down////////////
+			function downcard(){
+				
+				zog("clicked");
+				zim.move(promo_card, null, 5);
+
+				zim.animate({
+					target: card_btn,
+			      	obj:{rotation:card_btn.rotation-180},
+				});
+				card_btn1.alpha = 0;
+			}//end card down
+
+		//////////end promo card//////////////
+
+		/////////////////////////////////////
+		////////Play|Stop///////////////////
+		///////////////////////////////////
+
+		var imgS1 = frame.asset("bwm.png");
+		var imgS2 = frame.asset("dst.png");
+		var imgS3 = frame.asset("dno.png");
+		var imgS4 = frame.asset("dav.png");
+
+		imgS1.ii = 0;
+		imgS2.ii = 1;
+		imgS3.ii = 2;
+		imgS4.ii = 3;
+
+
+		var trackA = frame.asset("Deadmau5-Beneath-With-Me.mp3");
+		var trackB = frame.asset("deadmau5-Strobe.mp3");
+		var trackC = frame.asset("deadmau5-Not-Exactly.mp3");
+		var trackD = frame.asset("deadmau5-Avaritia.mp3");
+
+		trackA.i = 0;
+		trackB.i = 1;
+		trackC.i = 2;
+		trackD.i = 3;
+
+		sound1 = "Deadmau5-Beneath-With-Me.mp3";
+		sound2 = "deadmau5-Strobe.mp3";
+		sound3 = "deadmau5-Not-Exactly.mp3";
+		sound4 = "deadmau5-Avaritia.mp3";
+
+		sound1.idn = 0;
+		sound2.idn = 1;
+		sound3.idn = 2; 
+		sound4.idn = 3;
+
+
+		var soundLabels = [sound1, sound2, sound3, sound4];
+		var sounds = [];
+		var playArray = [play, play2, play3, play4];
+		var tracksArray = [trackA, trackB, trackC, trackD];
+		var images = [imgS1, imgS2, imgS3, imgS4];
+
+		//var posArray = [mbox1, mbox2, mbox3, mbox4];
+
+
+		play.on("click",StopPlay);
+		play2.on("click",StopPlay);
+		play3.on("click",StopPlay);
+		play4.on("click",StopPlay);
+
+
+
+		function StopPlay(e){
+			var x = e.target;
+			zog(x.id);
+
+			var playOn = soundLabels[x.id];
+			zog(playOn);
+
+			var sound;
+
+			for (var i = 0 ; i<sounds.length; i++){
+					if (sounds[i]) sounds[i].paused = true;
+			}
+			if (images[x.id]){
+				imageSong.addChild(images[x.id]);
+				zim.scale(images[x.id], 1.1);
+				images[x.id].x = imgS.x;
+				images[x.id].y = imgS.y;
+				stage.update();
+			} 
+
+
+			if (sounds[x.id]){
+				sounds[x.id].paused = false;
+			}else{
+				sounds[x.id] = frame.asset(soundLabels[x.id]).play();
+			}
+			stop_btn.x = x.x;
+			stop_btn.y = x.y;
+			stop_btn.id = x.id;
+			zim.scale(stop_btn, 0.73);
+
+			x.parent.addChild(stop_btn);
+			stage.update();
+				
+
+		}
+
+		stop_btn.on("click", function(){
+
+			sounds[stop_btn.id].paused = true;
+			stop_btn.parent.removeChild(stop_btn);
+			stage.update();
+
+		});
+
+
+
+		stage.update();
+
+		});//////end frame.on////
+
+
+
+	stage.update();
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+
+</head>
+
+</html>
